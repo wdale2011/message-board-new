@@ -1,0 +1,50 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  padding-top: 10vh;
+  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+  font-family: sans-serif;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.2);
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  padding: 15px 0;
+  background-color: #eff1f3;
+  border-bottom: 2px solid hsl(217, 50%, 20%)
+}
+
+#comments {
+  display: flex;
+  flex-direction: column;
+  background-color: #eff1f3;
+}
+
+.comment {
+  border-bottom: 1px solid hsl(217, 50%, 20%);
+  padding: 0 20px;
+
+  transition: background-color 150ms;
+}
+
+.comment:last-child {
+  border-bottom: 0;
+}
+
+.comment:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+

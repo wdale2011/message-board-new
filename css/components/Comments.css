@@ -1,20 +1,7 @@
+@import "Comment.css";
+
 message-board-comments {
   display: flex;
   flex-direction: column;
   background-color: #eff1f3;
-}
-
-message-board-comments .comment {
-  border-bottom: 1px solid hsl(217, 50%, 20%);
-  padding: 1rem 20px;
-
-  transition: background-color 150ms;
-}
-
-message-board-comments .comment:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-message-board .add-comment form {
-  display: flex;
 }

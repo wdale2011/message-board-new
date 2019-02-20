@@ -1,3 +1,5 @@
+@import "Comments.css";
+
 message-board {
   display: block;
   width: 100%;
@@ -19,6 +21,10 @@ message-board nav {
 message-board .add-comment {
   padding: 1rem 20px;
   background-color: #eff1f3;
+}
+
+message-board .add-comment form {
+  display: flex;
 }
 
 message-board .add-comment input {

@@ -1,5 +1,4 @@
 import API, { commentData } from '../MessageBoardAPI.js';
-import { formatObjectForAttribute } from '../helpers.js';
 
 class MessageBoardApp extends HTMLElement {
   constructor() {
@@ -18,7 +17,7 @@ class MessageBoardApp extends HTMLElement {
       this.state[key] = newState[key];
       // update component attributes
       this.querySelectorAll(`[${key}]`).forEach(element => {
-        element.setAttribute(key, formatObjectForAttribute(newState[key]));
+        element.setAttribute(key, JSON.stringify(newState[key]));
       });
     });
   }
@@ -28,7 +27,6 @@ class MessageBoardApp extends HTMLElement {
   }
 
   render() {
-    // console.log(this.state);
     this.innerHTML = /* html */ `
       <nav>
         <form>
@@ -40,9 +38,7 @@ class MessageBoardApp extends HTMLElement {
           <button type="submit">Search</button>
         </form>
       </nav>
-      <message-board-comments class="comments" comments="${formatObjectForAttribute(
-        this.state.comments
-      )}"></message-board-comments>
+      <message-board-comments></message-board-comments>
         <div class="add-comment">
           <form>
             <input
@@ -55,26 +51,34 @@ class MessageBoardApp extends HTMLElement {
         </div>
     `;
 
+    // set attributes of children
+    this.querySelector('message-board-comments').setAttribute('comments', JSON.stringify(this.state.comments));
+
     // add event listeners
     this.querySelector('nav form').addEventListener('submit', this.handleSearchSubmit);
     this.querySelector('.add-comment form').addEventListener('submit', this.handleAddComment);
+    this.querySelector('message-board-comments').addEventListener('removeComment', this.handleRemoveComment);
   }
+
+  handleRemoveComment = event => {
+    const comments = this.api.removeComment(event.target.comment.id);
+    this.setState({ comments });
+  };
 
   handleSearchSubmit = event => {
     event.preventDefault();
     const searchText = new FormData(event.target).get('search');
     const comments = this.api.filterCommentsByText(searchText);
     this.setState({ comments });
-    // this.querySelector('[comments]').attributes.comments = this.comments;
-    // this.render();
   };
 
   handleAddComment = event => {
     event.preventDefault();
     const commentText = new FormData(event.target).get('comment');
+    // reset our form
+    event.target.reset();
     const comments = this.api.addComment(commentText);
     this.setState({ comments });
-    // this.render();
   };
 }
 

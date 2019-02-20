@@ -1,20 +1,14 @@
-import { formatAttributeAsObject, formatObjectForAttribute } from '../helpers.js';
-
 export default class Comments extends HTMLElement {
   static get observedAttributes() {
     return ['comments'];
   }
 
-  // getter/setter comments
+  // getter for comments
   get comments() {
     if (this.hasAttribute('comments')) {
-      return formatAttributeAsObject(this.getAttribute('comments'));
+      return JSON.parse(this.getAttribute('comments'));
     }
     return [];
-  }
-
-  set comments(val) {
-    this.setAttribute('comments', formatObjectForAttribute(val));
   }
 
   connectedCallback() {
@@ -22,15 +16,12 @@ export default class Comments extends HTMLElement {
   }
 
   render() {
-    this.innerHTML = this.comments
-      .map(
-        comment => `
-          <div class="comment">
-            <p>${comment.text}</p>
-          </div>
-        `
-      )
-      .join('');
+    this.innerHTML = '';
+    this.comments.forEach(comment => {
+      const commentElement = document.createElement('message-board-comment');
+      commentElement.setAttribute('comment', JSON.stringify(comment));
+      this.appendChild(commentElement);
+    });
   }
 
   attributeChangedCallback(attrName, oldVal, newVal) {

@@ -9,7 +9,8 @@ class MessageBoardAPI {
    * @returns {array} Updated comments array
    */
   addComment(text) {
-    const id = this.comments[this.comments.length - 1].id + 1;
+    // TODO: fix ID
+    const id = this.comments.length > 0 ? this.comments[this.comments.length - 1].id + 1 : 0;
     const timestamp = Date.now();
     this.comments.push({
       text,

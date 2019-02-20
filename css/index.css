@@ -1,5 +1,4 @@
 @import "components/MessageBoard.css";
-@import "components/Comments.css";
 
 html,
 body {
@@ -23,7 +22,7 @@ p {
 input[type="text"] {
   font-size: 1rem;
   border: 0;
-  padding: 0.35rem;
+  padding: 0.4rem 0.65rem;
   border-radius: 5px;
 }
 

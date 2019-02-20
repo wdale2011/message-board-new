@@ -9,7 +9,6 @@ class MessageBoardAPI {
    * @returns {array} Updated comments array
    */
   addComment(text) {
-    // TODO: fix ID
     const id = this.comments.length > 0 ? this.comments[this.comments.length - 1].id + 1 : 0;
     const timestamp = Date.now();
     this.comments.push({
@@ -48,7 +47,8 @@ class MessageBoardAPI {
    *  @returns {array} Sorted array of comment objects
    */
   getCommentsSortedByTime(orderAsc = true) {
-    return this.comments.sort((lhs, rhs) => {
+    const clonedComments = JSON.parse(JSON.stringify(this.comments));
+    return clonedComments.sort((lhs, rhs) => {
       if (orderAsc) {
         return lhs.timestamp < rhs.timestamp ? -1 : 1;
       }

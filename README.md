@@ -15,7 +15,9 @@ Single-page message board app built entirely with 🍨 Vanilla JS 🍨
    5. Pass data down to Comments via `setAttribute`
 2. Comments
    1. rerender on `comments` attribute change
-3. Comment
+3. Message Board
+   1. `setState` function
+4. Comment
    1. CustomEvent for `removeComment`
 
 ## Resources

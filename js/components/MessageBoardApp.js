@@ -8,13 +8,22 @@ class MessageBoardApp extends HTMLElement {
     this.state = {
       comments: this.api.getCommentsSortedByTime(),
     };
+
+    // event listeners
+    this.addEventListener('removeComment', this.handleRemoveComment);
   }
 
+  // takes in new pieces of state
   setState(newState) {
+    // for each piece of state
     Object.keys(newState).forEach(key => {
-      // this.state.comments =  updatedComments
+      // update the correct key
       this.state[key] = newState[key];
+      // select all child elements tracking this piece of state via attributes
       this.querySelectorAll(`[${key}]`).forEach(element => {
+        // sets the attribute via the setter
+        // element.setAttribute(key, newState[key])
+        // elements["comments"] = value
         element[key] = newState[key];
       });
     });
@@ -36,7 +45,7 @@ class MessageBoardApp extends HTMLElement {
           <button type="submit">Search</button>
         </form>
       </nav>
-      <message-board-comments></message-board-comments>
+      <message-board-comment-list></message-board-comment-list>
         <div class="add-comment">
           <form>
             <input
@@ -49,12 +58,11 @@ class MessageBoardApp extends HTMLElement {
         </div>
     `;
 
-    this.querySelector('message-board-comments').setAttribute('comments', JSON.stringify(this.state.comments));
+    this.querySelector('message-board-comment-list').setAttribute('comments', JSON.stringify(this.state.comments));
 
     // add event listeners
     this.querySelector('nav form').addEventListener('submit', this.handleSearchSubmit);
     this.querySelector('.add-comment form').addEventListener('submit', this.handleAddComment);
-    this.querySelector('message-board-comments').addEventListener('removeComment', this.handleRemoveComment);
   }
 
   handleSearchSubmit = event => {
@@ -72,7 +80,14 @@ class MessageBoardApp extends HTMLElement {
     this.setState({ comments: updatedComments });
   };
 
-  handleRemoveComment = event => {};
+  handleRemoveComment = event => {
+    const confirmed = window.confirm(`Really delete ${event.detail}?`);
+    if (confirmed) {
+      console.log('id', event.target.comment.id);
+      const updatedComments = this.api.removeComment(event.target.comment.id);
+      this.setState({ comments: updatedComments });
+    }
+  };
 }
 
 export default MessageBoardApp;

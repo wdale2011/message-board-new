@@ -1,14 +1,11 @@
 # Board Out of My Mind
 
 Single-page message board app built entirely with 🍨 Vanilla JS 🍨
-
-## Steps
-
-# Message Board
-
-Message board built with custom components that look a lot like React.
+Uses custom components that look a lot like React.
 
 ![Example](example.gif)
+
+## Steps
 
 1. Message Board (this is our app container)
    1. init API dependency

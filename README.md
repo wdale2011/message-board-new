@@ -4,6 +4,12 @@ Single-page message board app built entirely with 🍨 Vanilla JS 🍨
 
 ## Steps
 
+# Message Board
+
+Message board built with custom components that look a lot like React.
+
+![Example](example.gif)
+
 1. Message Board (this is our app container)
    1. init API dependency
    2. state
